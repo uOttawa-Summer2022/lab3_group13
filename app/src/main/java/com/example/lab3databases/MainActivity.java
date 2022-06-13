@@ -32,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
         productList = new ArrayList<>();
 
         // info layout
-        productId = findViewById(R.id.productId);
-        productName = findViewById(R.id.productName);
-        productPrice = findViewById(R.id.productPrice);
+        productId = (TextView) findViewById(R.id.productId);
+        productName = (EditText) findViewById(R.id.productName);
+        productPrice = (EditText) findViewById(R.id.productPrice);
 
         //buttons
         addBtn = findViewById(R.id.addBtn);
@@ -95,5 +95,47 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, productList);
         productListView.setAdapter(adapter);
+    }
+
+    public void newProduct(View view){
+        MyDBHandler dbHandler = new MyDBHandler(this);
+
+        double price = Double.parseDouble(productPrice.getText().toString());
+
+        Product product = new Product(productName.getText().toString(),price);
+
+        dbHandler.addProduct(product);
+
+        productName.setText("");
+        productPrice.setText("");
+    }
+
+    public void lookupProduct(View view){
+        MyDBHandler dbHandler = new MyDBHandler(this);
+
+        Product product = dbHandler.findProduct(productName.getText().toString());
+
+        if(product != null){
+            productId.setText(String.valueOf(product.getId()));
+            productPrice.setText((String.valueOf(product.getProductPrice())));
+        }
+        else{
+            productId.setText("No Match Found");
+        }
+    }
+
+    public void removeProduct(View view){
+        MyDBHandler dbHandler = new MyDBHandler(this);
+
+        boolean result = dbHandler.deleteProduct(productName.getText().toString())
+
+        if(result){
+            productId.setText("Record Deleted");
+            productName.setText("");
+            productPrice.setText("");
+        }
+        else{
+            productId.setText("No Match Found");
+        }
     }
 }

@@ -51,4 +51,44 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null, values);
         db.close();
     }
+
+    public Product findProduct(String productName){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //run query to find product, check table_name where the column_product_name == productName
+
+        String query = "SELECT * FROM" + TABLE_NAME + " WHERE " + COLUMN_PRODUCT_NAME + "= \"" + productName +"\"";
+        Cursor cursor = db.rawQuery(query, null);
+
+        //create new obj and find results
+
+        Product product = new Product();
+        if(cursor.moveToFirst()){
+            product.setId(Integer.parseInt((cursor.getString(0))));
+            product.setProductName(cursor.getString(1));
+            product.setProductPrice(Double.parseDouble(cursor.getString(2)));
+            cursor.close();
+        }
+        else{
+            product = null;
+        }
+        db.close();
+        return product;
+    }
+
+    public boolean deleteProduct(String productName){
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean result = false;
+
+        String query = "SELECT * FROM" + TABLE_NAME + " WHERE " + COLUMN_PRODUCT_NAME + "= \"" + productName + "\"";
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            String idStr = cursor.getString(0);
+            db.delete(TABLE_NAME,COLUMN_ID + " = " + idStr, null);
+            cursor.close();
+            result = true;
+        }
+        db.close();
+        return  result;
+    }
 }
