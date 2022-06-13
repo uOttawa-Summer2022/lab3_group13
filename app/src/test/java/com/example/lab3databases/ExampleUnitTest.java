@@ -1,4 +1,4 @@
-package com.example.lab3_group13;
+package com.example.lab3databases;
 
 import org.junit.Test;
 
