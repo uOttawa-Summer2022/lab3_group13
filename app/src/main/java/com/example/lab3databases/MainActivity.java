@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
     public void removeProduct(View view){
         MyDBHandler dbHandler = new MyDBHandler(this);
 
-        boolean result = dbHandler.deleteProduct(productName.getText().toString())
+        boolean result = dbHandler.deleteProduct(productName.getText().toString());
 
         if(result){
             productId.setText("Record Deleted");
