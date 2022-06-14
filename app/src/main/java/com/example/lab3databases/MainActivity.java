@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
                 dbHandler.findProduct(name);
 
-//                Toast.makeText(MainActivity.this, "Add product", Toast.LENGTH_SHORT).show();
                 viewProducts();
             }
         });
@@ -83,9 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
                 dbHandler.deleteProduct(name);
 
-//                Toast.makeText(MainActivity.this, "Add product", Toast.LENGTH_SHORT).show();
                 viewProducts();
-            }
             }
         });
 
