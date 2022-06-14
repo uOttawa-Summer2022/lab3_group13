@@ -11,7 +11,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_PRODUCT_NAME = "name";
     private static final String COLUMN_PRODUCT_PRICE = "price";
-    private static final String DATABASE_NAME = "products.db";
+    private static final String DATABASE_NAME = "productDB.db";
     private static final int DATABASE_VERSION = 1;
 
     public MyDBHandler(Context context) {
@@ -23,7 +23,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
         String create_table_cmd = "CREATE TABLE " + TABLE_NAME +
                 "(" + COLUMN_ID + "INTEGER PRIMARY KEY, " +
                 COLUMN_PRODUCT_NAME + " TEXT, " +
-                COLUMN_PRODUCT_PRICE + " DOUBLE " + ")";
+                COLUMN_PRODUCT_PRICE + " DOUBLE" + ")";
 
         db.execSQL(create_table_cmd);
     }
@@ -57,7 +57,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         //run query to find product, check table_name where the column_product_name == productName
 
-        String query = "SELECT * FROM" + TABLE_NAME + " WHERE " + COLUMN_PRODUCT_NAME + "= \"" + productName +"\"";
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_PRODUCT_NAME + " = \"" + productName +"\"";
         Cursor cursor = db.rawQuery(query, null);
 
         //create new obj and find results
@@ -80,7 +80,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         boolean result = false;
 
-        String query = "SELECT * FROM" + TABLE_NAME + " WHERE " + COLUMN_PRODUCT_NAME + "= \"" + productName + "\"";
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_PRODUCT_NAME + " = \"" + productName + "\"";
         Cursor cursor = db.rawQuery(query, null);
         if(cursor.moveToFirst()){
             String idStr = cursor.getString(0);
