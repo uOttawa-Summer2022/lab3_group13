@@ -5,10 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 public class MyDBHandler extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "products";
-    private static final String COLUMN_ID = "id";
+    private static final String COLUMN_ID = "_id";
     private static final String COLUMN_PRODUCT_NAME = "name";
     private static final String COLUMN_PRODUCT_PRICE = "price";
     private static final String DATABASE_NAME = "productDB.db";
@@ -64,8 +65,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         Product product = new Product();
         if(cursor.moveToFirst()){
-            product.setId(Integer.parseInt((cursor.getString(0))));
-            product.setProductName(cursor.getString(1));
+            //product.setId(Integer.parseInt((cursor.getString(0))));
+            //product.setProductName(cursor.getString(1));
             product.setProductPrice(Double.parseDouble(cursor.getString(2)));
             cursor.close();
         }
@@ -84,11 +85,11 @@ public class MyDBHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
         if(cursor.moveToFirst()){
             String idStr = cursor.getString(0);
+
             db.delete(TABLE_NAME,COLUMN_ID + " = " + idStr, null);
-            cursor.close();
             result = true;
         }
         db.close();
-        return  result;
+        return result;
     }
 }

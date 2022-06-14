@@ -3,6 +3,7 @@ package com.example.lab3databases;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         dbHandler = new MyDBHandler(this);
 
         // button listeners
+        /*
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,10 +70,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String name = productName.getText().toString();
-
                 dbHandler.findProduct(name);
 
-                viewProducts();
             }
         });
 
@@ -79,12 +79,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String name = productName.getText().toString();
-
                 dbHandler.deleteProduct(name);
 
-                viewProducts();
             }
         });
+
+         */
 
 
         viewProducts();
@@ -107,28 +107,27 @@ public class MainActivity extends AppCompatActivity {
 
     public void newProduct(View view){
         MyDBHandler dbHandler = new MyDBHandler(this);
-
         double price = Double.parseDouble(productPrice.getText().toString());
 
-        Product product = new Product(productName.getText().toString(),price);
+        Product product = new Product(productName.getText().toString(), price);
 
         dbHandler.addProduct(product);
 
         productName.setText("");
         productPrice.setText("");
+
     }
 
     public void lookupProduct(View view){
         MyDBHandler dbHandler = new MyDBHandler(this);
-
         Product product = dbHandler.findProduct(productName.getText().toString());
 
         if(product != null){
             productId.setText(String.valueOf(product.getId()));
-            productPrice.setText((String.valueOf(product.getProductPrice())));
+            productPrice.setText(String.valueOf(product.getProductPrice()));
         }
         else{
-            productId.setText("No Match Found");
+            productId.setText("No Match");
         }
     }
 
@@ -140,10 +139,15 @@ public class MainActivity extends AppCompatActivity {
         if(result){
             productId.setText("Record Deleted");
             productName.setText("");
-            productPrice.setText("");
+            productId.setText("");
         }
         else{
             productId.setText("No Match Found");
         }
     }
+
+
+
+
+
 }
