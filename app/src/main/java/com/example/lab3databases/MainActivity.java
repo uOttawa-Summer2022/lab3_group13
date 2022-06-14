@@ -67,14 +67,25 @@ public class MainActivity extends AppCompatActivity {
         findBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Find product", Toast.LENGTH_SHORT).show();
+                String name = productName.getText().toString();
+
+                dbHandler.findProduct(name);
+
+//                Toast.makeText(MainActivity.this, "Add product", Toast.LENGTH_SHORT).show();
+                viewProducts();
             }
         });
 
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Delete product", Toast.LENGTH_SHORT).show();
+                String name = productName.getText().toString();
+
+                dbHandler.deleteProduct(name);
+
+//                Toast.makeText(MainActivity.this, "Add product", Toast.LENGTH_SHORT).show();
+                viewProducts();
+            }
             }
         });
 
